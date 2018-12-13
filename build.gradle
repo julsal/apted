@@ -1,9 +1,13 @@
+plugins {
+    id 'maven-publish'
+}
+
 apply plugin: 'java'
 
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-task wrapper(type: Wrapper) {
+task wrapper2(type: Wrapper) {
     gradleVersion = '4.5.1'
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
@@ -27,12 +31,23 @@ jar {
     // Exclude the old API from the JAR.
     exclude (
         'costmodel',
-        'distance',
+        'distance',sudo 
         'node',
         'parser'
     )
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'at.unisalzburg.dbresearch'
+            artifactId = 'apted'
+            version = '1.0'
+
+            from components.java
+        }
+    }
+}
 // Include test classes and private members into javadoc.
 javadoc {
   classpath += sourceSets.test.compileClasspath
