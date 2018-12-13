@@ -31,7 +31,7 @@ jar {
     // Exclude the old API from the JAR.
     exclude (
         'costmodel',
-        'distance',sudo 
+        'distance',
         'node',
         'parser'
     )
